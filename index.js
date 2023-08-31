@@ -1,7 +1,7 @@
 import express from 'express';
 import authRoutes from './routes/authRoutes.js';
 import profileRoutes from './routes/profileRoutes.js';
-// import run  from "./Db/connect.js";
+import postRoutes from './routes/postRoutes.js';
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from 'dotenv';
@@ -9,14 +9,9 @@ import mongoose from 'mongoose';
 
 dotenv.config();
 const app = express()
-const PORT = 8000
+const PORT =  8000
 
-mongoose.connect(process.env.MONGO_URL)
-.then(()=>{
-    console.log("connect to Db")
-}).catch((err)=>{
-    throw err;
-})
+
 
 
 
@@ -30,12 +25,22 @@ app.use((req, res, next)=> {
     next()
 })
 
+app.get('/', (req, res)=>{
+    res.send("<h1>Welcome to home page</h1>")
+
+})
 app.use('/auth', authRoutes)
 app.use('/profile', profileRoutes)
+app.use('/post', postRoutes)
+
 
 app.listen(PORT,async()=> {
-
-    // await run()
-    console.log("Server chal gaya at port number" + PORT)
+    console.log("Server is running " + PORT)
+    mongoose.connect(process.env.MONGO_URL)
+.then(()=>{
+    console.log("connect to Db")
+}).catch((err)=>{
+    throw err;
+})
 })
 

@@ -23,9 +23,19 @@ export const createPost = async (req, res) => {
 
 // Getting Post
 export const getPost = async (req, res) => {
-    // console.log(req.params);
+    console.log(req.query, "==>req query")
+    const queryObj = { ...req.query }
+    console.log(queryObj, "===>>before sideLine")
+
+
+    const sideLine = ["desc"]
+
+    sideLine.forEach(el => delete queryObj[el])
+    
+
+    console.log(queryObj, "===>>after sideLine")
     try {
-        const post = await Post.findById(req.params.id);
+        const post = await Post.find(''||queryObj);
         res.status(200).send({
             status: "Success",
             message: "Show user post",

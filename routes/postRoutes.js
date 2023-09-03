@@ -11,9 +11,10 @@ import {
 const postRoutes = express.Router()
 
 postRoutes.post('/', createPost)
-postRoutes.get('/:id', getPost)
+postRoutes.get('/', getPost)
 postRoutes.put('/:id', updatePost)
 postRoutes.put('/:id/like', likePost)
+
 postRoutes.delete('/:id', deletePost)
 postRoutes.get('/timeline/all', timelinePost)
 
